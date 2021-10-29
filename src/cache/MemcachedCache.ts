@@ -188,7 +188,7 @@ export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IO
                     reject(err);
                     return;
                 }
-                resolve(result);
+                resolve(JSON.parse(result));
             });
         });
     }
@@ -208,7 +208,7 @@ export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IO
         let timeoutInSec = timeout / 1000;
 
         return new Promise<any>((resolve, reject) => {
-            this._client.set(key, value, timeoutInSec, (err, result) => {
+            this._client.set(key, JSON.stringify(value), timeoutInSec, (err, result) => {
                 if (err != null) {
                     reject(err);
                     return;
@@ -234,7 +234,7 @@ export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IO
                     reject(err);
                     return;
                 }
-                resolve(result);
+                resolve(JSON.parse(result));
             });
         });
     }
