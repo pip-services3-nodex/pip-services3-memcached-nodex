@@ -174,7 +174,7 @@ class MemcachedCache {
                     reject(err);
                     return;
                 }
-                resolve(result);
+                resolve(result ? JSON.parse(result) : result);
             });
         });
     }
@@ -191,7 +191,7 @@ class MemcachedCache {
         this.checkOpened(correlationId);
         let timeoutInSec = timeout / 1000;
         return new Promise((resolve, reject) => {
-            this._client.set(key, value, timeoutInSec, (err, result) => {
+            this._client.set(key, JSON.stringify(value), timeoutInSec, (err, result) => {
                 if (err != null) {
                     reject(err);
                     return;
@@ -215,7 +215,7 @@ class MemcachedCache {
                     reject(err);
                     return;
                 }
-                resolve(result);
+                resolve(result ? JSON.parse(result) : result);
             });
         });
     }

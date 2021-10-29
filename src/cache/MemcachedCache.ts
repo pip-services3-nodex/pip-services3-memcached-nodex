@@ -53,7 +53,7 @@ import { ICache } from 'pip-services3-components-nodex';
  */
 export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IOpenable {
     private _connectionResolver: ConnectionResolver = new ConnectionResolver();
-    
+
     private _maxKeySize: number = 250;
     private _maxExpiration: number = 2592000;
     private _maxValue: number = 1048576;
@@ -71,7 +71,7 @@ export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IO
     /**
      * Creates a new instance of this cache.
      */
-    public constructor() {}
+    public constructor() { }
 
     /**
      * Configures component by passing configuration parameters.
@@ -95,27 +95,27 @@ export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IO
     }
 
     /**
-	 * Sets references to dependent components.
-	 * 
-	 * @param references 	references to locate the component dependencies. 
+     * Sets references to dependent components.
+     * 
+     * @param references 	references to locate the component dependencies. 
      */
     public setReferences(references: IReferences): void {
         this._connectionResolver.setReferences(references);
     }
 
     /**
-	 * Checks if the component is opened.
-	 * 
-	 * @returns true if the component has been opened and false otherwise.
+     * Checks if the component is opened.
+     * 
+     * @returns true if the component has been opened and false otherwise.
      */
     public isOpen(): boolean {
         return this._client;
     }
 
     /**
-	 * Opens the component.
-	 * 
-	 * @param correlationId 	(optional) transaction id to trace execution through call chain.
+     * Opens the component.
+     * 
+     * @param correlationId 	(optional) transaction id to trace execution through call chain.
      */
     public async open(correlationId: string): Promise<void> {
         let connections = await this._connectionResolver.resolveAll(correlationId);
@@ -153,9 +153,9 @@ export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IO
     }
 
     /**
-	 * Closes component and frees used resources.
-	 * 
-	 * @param correlationId 	(optional) transaction id to trace execution through call chain.
+     * Closes component and frees used resources.
+     * 
+     * @param correlationId 	(optional) transaction id to trace execution through call chain.
      */
     public async close(correlationId: string): Promise<void> {
         this._client = null;
@@ -170,7 +170,7 @@ export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IO
             );
         }
     }
-    
+
     /**
      * Retrieves cached value from the cache using its key.
      * If value is missing in the cache or expired it returns null.
@@ -188,7 +188,7 @@ export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IO
                     reject(err);
                     return;
                 }
-                resolve(JSON.parse(result));
+                resolve(result ? JSON.parse(result) : result);
             });
         });
     }
@@ -234,9 +234,9 @@ export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IO
                     reject(err);
                     return;
                 }
-                resolve(JSON.parse(result));
+                resolve(result ? JSON.parse(result) : result);
             });
         });
     }
-    
+
 }
