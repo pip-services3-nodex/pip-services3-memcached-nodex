@@ -109,7 +109,7 @@ export class MemcachedCache implements ICache, IConfigurable, IReferenceable, IO
      * @returns true if the component has been opened and false otherwise.
      */
     public isOpen(): boolean {
-        return this._client;
+        return this._client != null;
     }
 
     /**

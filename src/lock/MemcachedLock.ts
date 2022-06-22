@@ -111,7 +111,7 @@ export class MemcachedLock extends Lock implements IConfigurable, IReferenceable
 	 * @returns true if the component has been opened and false otherwise.
      */
     public isOpen(): boolean {
-        return this._client;
+        return this._client != null;
     }
 
     /**
