@@ -5,4 +5,5 @@
 /config/config.json
 /config/config.yaml
 /data/dummies.json
+package-lock.json
 .npmrc
